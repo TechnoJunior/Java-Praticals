@@ -1,120 +1,98 @@
-//8.3 WAP to connect applet to database
-import java.sql.*;
-import java.awt.*;
-import java.awt.event.*;
-
- class studentdata1 extends Frame implements ActionListener
+import java.io.*;
+import java.util.*;
+class book
 {
-	Frame f;
-	Label l1,l2;
-	TextField t1,t2;
-	Button b1,b2,b3,b4;
-	
-	Connection con;
-	Statement st;
-	ResultSet rs;
-	
+	String name,aname; 
+	int price;
 	void get()
 	{
-		try
-		{
-			f=new Frame();
-			f.setLayout(null);
-			f.setVisible(true);
-			f.setSize(300,200);
-			
-			l1=new Label("Roll");
-			l2=new Label("Name");
-			l1.setBounds(40,52,50,10);
-			l2.setBounds(40,82,50,10);
-			f.add(l1);
-			f.add(l2);
-			
-			t1=new TextField(50);
-			t2=new TextField(50);
-			t1.setBounds(100,50,150,25);
-			t2.setBounds(100,80,150,25);			
-			f.add(t1);
-			f.add(t2);
-			
-			b1=new Button("Insert");
-			b2=new Button("Delete");
-			b3=new Button("Update");
-			b4=new Button("Close");
-
-			b1.setBounds(40,120,50,30);
-			b2.setBounds(100,120,50,30);
-			b3.setBounds(160,120,50,30);
-			b4.setBounds(220,120,50,30);
-			
-			f.add(b1);
-			f.add(b2);
-			f.add(b3);
-			f.add(b4);
-			
-			b1.addActionListener(this);
-			b2.addActionListener(this);
-			b3.addActionListener(this);
-			b4.addActionListener(this);
-			
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			con=DriverManager.getConnection("jdbc:odbc:cubix");
-			st=con.createStatement();
-		}
-		catch(Exception e)
-		{
-			System.out.println(e);
-		}
+		Scanner ob=new Scanner(System.in);
+		System.out.print("Enter Book Name: ");
+		name=ob.next();
+		System.out.print("\nEnter Author Name: ");
+		aname=ob.next();
+		System.out.print("\nEnter Book Price: ");
+		price=ob.nextInt();
 	}
-	public void actionPerformed(ActionEvent e1)
+	void display()
 	{
-		try
-		{
-			if(e1.getSource()==b1)
-			{
-				String s1="insert into rubixcube values('"+t1.getText()+"','"+t2.getText()+"')";
-				System.out.println("Record Insert : "+s1);
-				st.executeUpdate(s1);
-				rs=st.executeQuery("select * from rubixcube");
-				t1.setText("0");
-				t2.setText("0");
-			}
-			else if(e1.getSource()==b2)
-			{
-				String s2="delete from rubixcube where  Id="+t1.getText();
-				System.out.println("Record Deleted : "+s2);
-				st.executeUpdate(s2);
-				rs=st.executeQuery("select * from rubixcube");
-				t1.setText("0");
-				t2.setText("0");
-			}
-			else if(e1.getSource()==b3)
-			{
-				String s3="update rubixcube set Name='"+t2.getText()+"' where Id="+t1.getText();
-				System.out.println("Record Updated : "+s3);
-				st.executeUpdate(s3);
-				rs=st.executeQuery("select * from rubixcube");
-				t1.setText("0");
-				t2.setText("0");
-			}
-			else if(e1.getSource()==b4)
-			{
-				f.dispose();
-				con.close();
-				st.close();
-			}
-		}
-		catch(Exception d)
-		{
-			System.out.println(d);
-		}
+		System.out.println("\nBook Name: "+name);
+		System.out.println("\nAuthor Name: "+aname);
+		System.out.println("\nBook Price: "+price);
 	}
 }
-	class MainDemo
+class C extends book
+{
+	String name1;
+	int ver;
+	void get1()
 	{
+		get();
+		Scanner ob1=new Scanner(System.in);
+		System.out.print("\nEnter Software Name: ");
+		name1=ob1.next();
+		System.out.print("\nEnter Version Number: ");
+		ver=ob1.nextInt();
+	}
+	void display1()
+	{
+		display();
+		System.out.println("\nSoftware Name: "+name1);
+		System.out.println("\nSoftware Version: "+ver);
+	}
+}
+class cpp extends book
+{
+	String name2;
+	int ver1;
+	void get2()
+	{
+		get();
+		Scanner ob2=new Scanner(System.in);
+		System.out.print("\nEnter Software Name: ");
+		name2=ob2.next();
+		System.out.print("\nEnter Version Number: ");
+		ver1=ob2.nextInt();
+	}
+	void display2()
+	{
+		display();
+		System.out.println("\nSoftware Name: "+name2);
+		System.out.println("\nSoftware Version: "+ver1);
+	}
+}
+class java extends book
+{
+	String name3;
+	int ver2;
+	void get3()
+	{
+		get();
+		Scanner ob3=new Scanner(System.in);
+		System.out.println("\nEnter Software Name: ");
+		name3=ob3.next();
+		System.out.println("\nEnter Version Number: ");
+		ver2=ob3.nextInt();
+	}
+	void display3()
+	{
+		display();
+		System.out.println("\nSoftware Name: "+name3);
+		System.out.println("\nSoftware Version: "+ver2);
+	}
+}
+class MainDemo
+{
 	public static void main(String args[])
 	{
-		studentdata1 obj=new studentdata1();
-		obj.get();
+		C obj=new C();
+		obj.get1();
+		obj.display1();
+		cpp obj1=new cpp();
+		obj1.get2();
+		obj1.display2();
+		java obj2=new java();
+		obj2.get3();
+		obj2.display3();
 	}
 }
